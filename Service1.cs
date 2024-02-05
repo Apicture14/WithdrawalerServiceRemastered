@@ -18,7 +18,8 @@ namespace WithdrawalerService
     {
         public static int ProgramVersion = 1;
         public static string Identifier = "WITHDRAWALER";
-        public static byte ControlKey = 0x6A;
+        public static byte SecretKey = 0x6A;
+        public static int counter;
 
         public Timer WorkerTimer = new Timer();
         public Timer ListenerTimer = new Timer();
@@ -100,39 +101,23 @@ namespace WithdrawalerService
         public void Run(object s, ElapsedEventArgs e)
         {
             WorkerTimer.Stop();
+            counter++;
             bool Killed = false;
             bool Found = false;
             int Time = Convert.ToInt32(DateTime.Now.ToString("HHmmss"));
             foreach (var timespan in AppliedConfig.Timespans)
             {
-                if (Time >= timespan.Item1 && Time < timespan.Item2)
+                if (Time >= timespan[0] && Time < timespan[1])
                 {
                     Log($"In routine({AppliedConfig.Timespans.IndexOf(timespan)})");
-                    List<Process> targets =
-                        Process.GetProcesses().Where(p => AppliedConfig.Targets.Contains(p.ProcessName)).ToList();
-                    foreach (var targetProcess in targets)
+                    switch (AppliedConfig.ExecutionType)
                     {
-                        if (targetProcess.MainWindowHandle == IntPtr.Zero)
-                        {
-                            continue;
-                        }
-                        Configuration.DataObject data = Utils.SafeKill(targetProcess);
-                        if (data.State == 0)
-                        {
-                            if (Records.Keys.Contains(((List<string>)data.Data)[0]))
-                            {
-                                Records[((List<string>)data.Data)[0]] = 1;
-                            }
-                            else
-                            {
-                                Records[((List<string>)data.Data)[0]]++;
-                            }
-                            Log($"Killed {((List<string>)data.Data)[0]}:{((List<string>)data.Data)[1]} ,times {Records[((List<string>)data.Data)[0]]}");
-                        }
-                        else
-                        {
-                            Log(data.Message,"E");
-                        }
+                        case 0:
+                            Utils.Kill();
+                            break;
+                        case 1:
+                            Utils.SoftKill(AppliedConfig.SoftExecuteMethod);
+                            break;
                     }
                 }
                 else
@@ -140,7 +125,7 @@ namespace WithdrawalerService
                     Log("Idle Waiting for next schedule");
                 }
             }
-
+            
             if (urand)
             {
                 WorkerTimer.Interval = rand.Next(AppliedConfig.MinDelay, AppliedConfig.MaxDelay);
@@ -149,6 +134,7 @@ namespace WithdrawalerService
             {
                 WorkerTimer.Interval = AppliedConfig.MinDelay;
             }
+            Log($"Loop{counter} Finished,{WorkerTimer.Interval}ms brefore next");
             WorkerTimer.Start();
         }
 
@@ -161,7 +147,8 @@ namespace WithdrawalerService
                 {
                     ListenerTimer.Stop();
                     Log("Control Received,verifying","C");
-                    if (Identifier != Configuration.ExCode(File.ReadAllText(path),ControlKey))
+                    Log($"{Identifier} {Configuration.ExCode(File.ReadAllText(path),SecretKey)}");
+                    if (Identifier != Configuration.ExCode(File.ReadAllText(path),SecretKey))
                     {
                         if (File.Exists(path + ".x"))
                         {
@@ -177,6 +164,7 @@ namespace WithdrawalerService
                     {
                         case "STOP": 
                         {
+                            File.Delete(path);
                             Log("STOP REQUESTED,Stopping");
                             this.Stop();
                             break;
@@ -188,6 +176,7 @@ namespace WithdrawalerService
                             break;
                         }
                     }
+                    File.Delete(path);
                 }
             }
             ListenerTimer.Interval = 1000;

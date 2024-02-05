@@ -16,6 +16,7 @@ namespace WithdrawalerService
         /// </summary>
         static void Main()
         {
+            //Standard Service Generate
             
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
@@ -23,21 +24,11 @@ namespace WithdrawalerService
                 new Service1()
             };
             ServiceBase.Run(ServicesToRun);
-            
-            /*
-            foreach (var VARIABLE in Process.GetProcesses())
-            {
-                if (VARIABLE.ProcessName == "chrome")
-                {
-                    if (VARIABLE.MainWindowHandle == IntPtr.Zero)
-                    {
-                        continue;
-                    }
+        
+            //Standard Config File Generate
+            Configuration.Write(Configuration.CreateDefault(), new DirectoryInfo("D:\\"));
 
-                    Utils.SafeKill(VARIABLE);
-                }
-            }
-            */
+
         }
     }
 }
