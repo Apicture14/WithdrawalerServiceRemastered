@@ -1,0 +1,11 @@
+D:\Csharp-progs\WithdrawalerService\obj\Debug\WithdrawalerService.csproj.AssemblyReference.cache
+D:\Csharp-progs\WithdrawalerService\obj\Debug\WithdrawalerService.csproj.SuggestedBindingRedirects.cache
+D:\Csharp-progs\WithdrawalerService\obj\Debug\WithdrawalerService.csproj.CoreCompileInputs.cache
+D:\Csharp-progs\WithdrawalerService\bin\Debug\WithdrawalerService.exe.config
+D:\Csharp-progs\WithdrawalerService\bin\Debug\WithdrawalerService.exe
+D:\Csharp-progs\WithdrawalerService\bin\Debug\WithdrawalerService.pdb
+D:\Csharp-progs\WithdrawalerService\bin\Debug\Newtonsoft.Json.dll
+D:\Csharp-progs\WithdrawalerService\bin\Debug\Newtonsoft.Json.xml
+D:\Csharp-progs\WithdrawalerService\obj\Debug\WithdrawalerService.csproj.CopyComplete
+D:\Csharp-progs\WithdrawalerService\obj\Debug\WithdrawalerService.exe
+D:\Csharp-progs\WithdrawalerService\obj\Debug\WithdrawalerService.pdb
