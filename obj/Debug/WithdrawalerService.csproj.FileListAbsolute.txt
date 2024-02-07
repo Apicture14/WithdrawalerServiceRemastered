@@ -4,8 +4,8 @@ D:\Csharp-progs\WithdrawalerService\obj\Debug\WithdrawalerService.csproj.CoreCom
 D:\Csharp-progs\WithdrawalerService\bin\Debug\WithdrawalerService.exe.config
 D:\Csharp-progs\WithdrawalerService\bin\Debug\WithdrawalerService.exe
 D:\Csharp-progs\WithdrawalerService\bin\Debug\WithdrawalerService.pdb
-D:\Csharp-progs\WithdrawalerService\bin\Debug\Newtonsoft.Json.dll
-D:\Csharp-progs\WithdrawalerService\bin\Debug\Newtonsoft.Json.xml
 D:\Csharp-progs\WithdrawalerService\obj\Debug\WithdrawalerService.csproj.CopyComplete
 D:\Csharp-progs\WithdrawalerService\obj\Debug\WithdrawalerService.exe
 D:\Csharp-progs\WithdrawalerService\obj\Debug\WithdrawalerService.pdb
+D:\Csharp-progs\WithdrawalerService\bin\Debug\System.Runtime.Serialization.Primitives.dll
+D:\Csharp-progs\WithdrawalerService\bin\Debug\YamlDotNet.NetCore.dll
